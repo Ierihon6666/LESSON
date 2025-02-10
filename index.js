@@ -74,17 +74,6 @@ app.delete("/deleteId/:id_user", async (req, res) => {
     }
 })
 
-
-app.delete("/deleteAll", async (req, res) => {
-    try {
-        await User.destroy({ where: { id_user } })
-        res.json({ message: "Все записи удалены!" })
-    } catch (error) {
-        console.log(error)
-        res.status(500).json({ message: "Ошибка" })
-    }
-})
-
 async function start() {
     await sequelize.authenticate()
     await sequelize.sync()
