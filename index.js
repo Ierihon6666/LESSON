@@ -30,6 +30,17 @@ app.get("/main", (req, res) => {
     res.send("<h1>Hello world!</h1>")
 })
 
+app.get("/getUser/:id_user", async (req, res) => {
+    try {
+        const data = req.params
+        const user = await User.findOne({ where: { id_user: data.id_user } })
+        if (!user) return res.json("Запись не найдена!")
+        res.json(user)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: "Ошибка" })
+    }
+})
 
 
 async function start() {
