@@ -30,6 +30,7 @@ app.get("/main", (req, res) => {
     res.send("<h1>Hello world!</h1>")
 })
 
+<<<<<<< HEAD
 app.get("/getUser/:id_user", async (req, res) => {
     try {
         const data = req.params
@@ -41,7 +42,20 @@ app.get("/getUser/:id_user", async (req, res) => {
         res.status(500).json({ message: "Ошибка" })
     }
 })
+=======
+app.post("/insertUser", async (req, res) => {
+>>>>>>> post-request
 
+    try {
+        const data = req.body
+        console.log(req.body)
+        const newUser = await User.create({ surname: data.surname, number_group: data.number_group })
+        res.json({ message: "Запись создана!" })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: "Ошибка" })
+    }
+})
 
 async function start() {
     await sequelize.authenticate()
