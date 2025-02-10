@@ -30,7 +30,18 @@ app.get("/main", (req, res) => {
     res.send("<h1>Hello world!</h1>")
 })
 
+app.post("/insertUser", async (req, res) => {
 
+    try {
+        const data = req.body
+        console.log(req.body)
+        const newUser = await User.create({ surname: data.surname, number_group: data.number_group })
+        res.json({ message: "Запись создана!" })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: "Ошибка" })
+    }
+})
 
 async function start() {
     await sequelize.authenticate()
