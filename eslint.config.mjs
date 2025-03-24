@@ -18,8 +18,8 @@ export default [
   {
     rules: {
       'no-unused-vars': 'warn',//выдает предупреждение всместо ошибки
-      'eqeqeq': ['error', 'always'], // требует использовать строгое равенство
       'camelcase': ['warn', { properties: 'always' }], // выдает предупреждение, если название переменной не в camelCase
+      'no-extra-semi': 'error', // указывает на лишние точки с запятой
     },
   },
 ];
