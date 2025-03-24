@@ -17,10 +17,11 @@ const sequelize = new Sequelize(
     }
 );
 
+// Изменены ключи на camelCase
 const User = sequelize.define("users", {
-    id_user: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    idUser: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true }, // изменено на idUser
     surname: { type: DataTypes.STRING },
-    number_group: { type: DataTypes.STRING },
+    numberGroup: { type: DataTypes.STRING }, // изменено на numberGroup
 }, { timestamps: false });
 
 app.use(cors());
@@ -30,10 +31,11 @@ app.get("/main", (req, res) => {
     res.send("<h1>Hello world!</h1>");
 });
 
-app.get("/getUser/:id_user", async (req, res) => {
+// Обратите внимание на изменения в переменной idUser
+app.get("/getUser/:idUser", async (req, res) => {
     try {
-        const { id_user } = req.params;
-        const user = await User.findOne({ where: { id_user } });
+        const { idUser } = req.params; // изменено на idUser
+        const user = await User.findOne({ where: { idUser } }); // изменено на idUser
         if (!user) return res.json("Запись не найдена!");
         res.json(user);
     } catch (error) {
@@ -42,11 +44,12 @@ app.get("/getUser/:id_user", async (req, res) => {
     }
 });
 
+// Изменено на numberGroup
 app.post("/insertUser", async (req, res) => {
     try {
         const data = req.body;
         console.log(req.body);
-        await User.create({ surname: data.surname, number_group: data.number_group });
+        await User.create({ surname: data.surname, numberGroup: data.numberGroup }); // изменено на numberGroup
         res.json({ message: "Запись создана!" });
     } catch (error) {
         console.log(error);
@@ -54,9 +57,10 @@ app.post("/insertUser", async (req, res) => {
     }
 });
 
+// Удаляем все записи
 app.delete("/deleteAll", async (req, res) => {
     try {
-        await User.destroy({ where: {} }); // Удаляем все записи
+        await User.destroy({ where: {} }); 
         res.json({ message: "Все записи удалены!" });
     } catch (error) {
         console.log(error);
@@ -64,11 +68,12 @@ app.delete("/deleteAll", async (req, res) => {
     }
 });
 
-app.delete("/deleteId/:id_user", async (req, res) => {
+// Изменено на idUser
+app.delete("/deleteId/:idUser", async (req, res) => {
     try {
-        const { id_user } = req.params;
-        await User.destroy({ where: { id_user } });
-        res.json({ message: `Запись по ID=${id_user} удалена` });
+        const { idUser } = req.params; // изменено на idUser
+        await User.destroy({ where: { idUser } }); // изменено на idUser
+        res.json({ message: `Запись по ID=${idUser} удалена` }); // изменено на idUser
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: "Ошибка" });
